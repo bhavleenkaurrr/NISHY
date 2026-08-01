@@ -399,7 +399,49 @@
     page.classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
   }
+// back buttons for page 2 and page 3
+let prankTimer;
 
+function createBackButton(page) {
+  const backButton = document.createElement('button');
+
+  backButton.textContent = '← go back';
+
+  backButton.style.position = 'absolute';
+  backButton.style.bottom = '35px';
+  backButton.style.left = '50%';
+  backButton.style.transform = 'translateX(-50%)';
+  backButton.style.padding = '10px 24px';
+  backButton.style.border = '1.5px solid #d6a44a';
+  backButton.style.borderRadius = '30px';
+  backButton.style.background = 'rgba(255, 250, 242, 0.95)';
+  backButton.style.color = '#b94f78';
+  backButton.style.fontFamily = '"Caveat", cursive';
+  backButton.style.fontSize = '22px';
+  backButton.style.cursor = 'pointer';
+  backButton.style.zIndex = '20';
+
+  backButton.addEventListener('mouseenter', () => {
+    backButton.style.background = '#b94f78';
+    backButton.style.color = '#ffffff';
+  });
+
+  backButton.addEventListener('mouseleave', () => {
+    backButton.style.background = 'rgba(255, 250, 242, 0.95)';
+    backButton.style.color = '#b94f78';
+  });
+
+  backButton.addEventListener('click', () => {
+    clearTimeout(prankTimer);
+    show(p1);
+  });
+
+  page.appendChild(backButton);
+}
+
+createBackButton(p2);
+createBackButton(p3);
+  
   okay.addEventListener('click', () => {
     show(p2);
     setTimeout(() => show(p3), 25000);
