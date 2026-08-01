@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Nishy ♡</title>
+  <meta name="theme-color" content="#f6b2ca" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#fff7e9;
+      --paper:#fffaf2;
+      --pink:#f6adc7;
+      --pink2:#ffd8e6;
+      --hot:#bd4f78;
+      --gold:#d6a43c;
+      --gold2:#f2ce72;
+      --ink:#3e2c31;
+      --muted:#806b70;
+      --shadow:0 20px 55px rgba(94,44,61,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--cream);color:var(--ink)}
+    body{
+      font-family:"DM Sans",system-ui,sans-serif;
+      overflow-x:hidden;
+    }
+    button{font:inherit}
+    .page{
+      min-height:100svh;
+      position:relative;
+      overflow:hidden;
+      display:none;
+      place-items:center;
+      padding:40px 22px;
+      isolation:isolate;
+    }
+    .page.active{display:grid;animation:pageIn .8s ease both}
+    @keyframes pageIn{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+    .paper-bg{
+      position:absolute;inset:0;z-index:-5;
+      background:
+        radial-gradient(circle at 15% 18%,rgba(246,173,199,.34),transparent 22%),
+        radial-gradient(circle at 88% 76%,rgba(214,164,60,.22),transparent 24%),
+        radial-gradient(circle at 80% 15%,rgba(246,173,199,.2),transparent 18%),
+        repeating-linear-gradient(0deg,rgba(111,73,45,.025) 0 1px,transparent 1px 5px),
+        linear-gradient(135deg,#fff9ed,#f7ead7);
+    }
+    .paper-bg:after{
+      content:"";position:absolute;inset:0;opacity:.25;
+      background-image:radial-gradient(rgba(90,60,40,.18) .6px,transparent .7px);
+      background-size:7px 7px;
+      mix-blend-mode:multiply;
+    }
+    .content{
+      width:min(980px,100%);
+      position:relative;
+      z-index:3;
+      text-align:center;
+    }
+    .tiny-note{
+      display:inline-block;
+      font-family:"Patrick Hand",cursive;
+      color:var(--hot);
+      font-size:clamp(18px,3vw,25px);
+      transform:rotate(-3deg);
+      margin-bottom:3px;
+    }
+    h1,h2,p{margin:0}
+    .hero-title{
+      font-family:"Caveat",cursive;
+      font-size:clamp(56px,9vw,112px);
+      line-height:.82;
+      color:var(--hot);
+      letter-spacing:-3px;
+      text-shadow:2px 2px 0 #fff, 4px 5px 0 rgba(214,164,60,.22);
+    }
+    .hero-title span{color:var(--gold);display:inline-block;transform:rotate(-2deg)}
+    .sub{
+      max-width:650px;margin:28px auto 0;
+      font-family:"Patrick Hand",cursive;
+      font-size:clamp(22px,3.2vw,34px);
+      line-height:1.1;
+      color:#5c474d;
+    }
+    .buttons{
+      display:flex;justify-content:center;align-items:center;gap:18px;
+      margin-top:34px;min-height:88px;position:relative;
+    }
+    .btn{
+      border:2px solid var(--gold);
+      border-radius:999px;
+      padding:14px 26px;
+      cursor:pointer;
+      font-family:"Patrick Hand",cursive;
+      font-size:22px;
+      font-weight:500;
+      transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+      box-shadow:0 8px 0 rgba(214,164,60,.18),0 12px 25px rgba(75,39,51,.12);
+      white-space:nowrap;
+    }
+    .btn:active{transform:translateY(3px)}
+    .okay{
+      position:relative;z-index:5;
+      background:var(--hot);color:white;
+      border-color:var(--hot);
+    }
+    .okay:hover{transform:rotate(-2deg) scale(1.04)}
+    .reveal{
+      position:fixed;
+      left:50%;top:58%;
+      transform:translate(-50%,-50%) rotate(2deg);
+      background:#fff4d9;color:#8b5d1c;
+      z-index:10;
+      will-change:left,top,transform;
+    }
+    .reveal:hover{box-shadow:0 14px 28px rgba(214,164,60,.25)}
+    .micro{
+      margin-top:20px;font-size:13px;color:#9b8588;
+      font-family:"Patrick Hand",cursive;
+    }
+    .sticker{
+      position:absolute;z-index:1;pointer-events:none;
+      user-select:none;
+    }
+    .ball{
+      width:min(320px,38vw);
+      right:-50px;top:-40px;
+      transform:rotate(7deg);
+      filter:drop-shadow(0 18px 18px rgba(77,45,48,.15));
+    }
+    .ball2{
+      width:min(220px,30vw);
+      left:-55px;bottom:-25px;
+      transform:rotate(-10deg);
+      opacity:.9;
+    }
+    .photo-card{
+      position:absolute;z-index:2;
+      width:170px;padding:10px 10px 18px;
+      background:#fffdf8;
+      box-shadow:0 15px 35px rgba(80,45,55,.16);
+      transform:rotate(-8deg);
+      left:8%;top:16%;
+    }
+    .photo-card:before,.photo-card:after{
+      content:"";position:absolute;width:70px;height:22px;
+      background:rgba(246,173,199,.7);top:-10px;
+      transform:rotate(-7deg);left:35px;
+    }
+    .photo-card:after{background:rgba(214,164,60,.55);left:auto;right:30px;transform:rotate(9deg)}
+    .photo-card img{width:100%;display:block;aspect-ratio:572/701;object-fit:cover;filter:saturate(.85) sepia(.06)}
+    .photo-card figcaption{
+      font-family:"Patrick Hand",cursive;font-size:19px;color:#8a6b73;
+      margin-top:8px;transform:rotate(-2deg)
+    }
+    .doodle{
+      font-family:"Caveat",cursive;color:var(--gold);font-size:60px;
+      line-height:1;transform:rotate(-10deg);
+    }
+    .star{font-size:55px;color:var(--pink);text-shadow:2px 2px #fff;transform:rotate(13deg)}
+    .tape{
+      width:130px;height:34px;background:rgba(246,173,199,.45);
+      transform:rotate(-7deg);
+      box-shadow:0 2px 8px rgba(60,30,40,.05);
+    }
+
+    /* prank page */
+    .prank-wrap{max-width:820px}
+    .prank-card{
+      background:rgba(255,250,242,.9);
+      border:2px dashed rgba(189,79,120,.42);
+      padding:clamp(35px,7vw,75px);
+      transform:rotate(-1deg);
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+    .prank-card:before{
+      content:"oops";
+      position:absolute;top:-23px;right:9%;
+      background:var(--gold2);padding:6px 18px;
+      font-family:"Patrick Hand",cursive;font-size:22px;
+      transform:rotate(5deg);box-shadow:0 5px 10px rgba(70,40,30,.1);
+    }
+    .prank-title{
+      font-family:"Caveat",cursive;
+      color:var(--hot);
+      font-size:clamp(40px,6vw,68px);
+      line-height:.95;
+    }
+    .prank-sub{
+      margin-top:20px;font-family:"Patrick Hand",cursive;
+      font-size:clamp(24px,3.5vw,35px);color:#604a50;
+    }
+    .timer{
+      margin:30px auto 0;width:min(360px,80%);
+      height:8px;background:#f3dfc5;border-radius:999px;overflow:hidden;
+    }
+    .timer > span{display:block;width:100%;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));transform-origin:left;animation:drain 45s linear forwards}
+    @keyframes drain{to{transform:scaleX(0)}}
+    .count{font-family:"Patrick Hand",cursive;color:#a4878e;margin-top:10px;font-size:18px}
+
+    /* final */
+    .final-card{
+      width:min(760px,100%);
+      padding:clamp(35px,7vw,70px);
+      background:#fffdf7;
+      position:relative;
+      box-shadow:0 25px 65px rgba(89,48,59,.16);
+      border:1px solid rgba(214,164,60,.35);
+      transform:rotate(.5deg);
+    }
+    .final-card:before{
+      content:"";position:absolute;inset:12px;
+      border:1px dashed rgba(189,79,120,.35);pointer-events:none;
+    }
+    .final-kicker{
+      font-family:"Patrick Hand",cursive;color:var(--gold);font-size:25px;
+      position:relative;
+    }
+    .final-title{
+      position:relative;margin-top:5px;
+      font-family:"Caveat",cursive;color:var(--hot);
+      font-size:clamp(48px,7vw,76px);line-height:.9;
+    }
+    .letter{
+      position:relative;margin:28px auto 0;
+      max-width:610px;text-align:left;
+      font-family:"Patrick Hand",cursive;
+      font-size:clamp(22px,3vw,30px);
+      line-height:1.3;color:#514046;
+    }
+    .letter p + p{margin-top:18px}
+    .signature{
+      text-align:right;margin-top:52px;
+      font-family:"Caveat",cursive;font-size:39px;color:var(--hot);
+    }
+    .signature-name{display:inline-block;margin-top:6px;font-size:.88em;}
+    .mini-ball{
+      position:absolute;width:145px;right:-70px;bottom:-50px;transform:rotate(8deg);
+      filter:drop-shadow(0 12px 15px rgba(70,35,45,.12));
+    }
+    .photo-small{
+      position:absolute;width:120px;left:-62px;bottom:55px;
+      transform:rotate(-7deg);background:white;padding:7px 7px 15px;
+      box-shadow:0 10px 25px rgba(70,35,45,.15);
+    }
+    .photo-small img{width:100%;display:block}
+    .floating{
+      position:absolute;z-index:1;pointer-events:none;
+      animation:float 5s ease-in-out infinite;
+    }
+    @keyframes float{50%{transform:translateY(-15px) rotate(3deg)}}
+    .confetti{font-size:32px;color:var(--pink)}
+
+    @media (max-width:700px){
+      .photo-card{width:125px;left:2%;top:10%}
+      .ball{width:190px;right:-55px;top:-15px}
+      .ball2{width:145px;left:-40px;bottom:-20px}
+      .buttons{flex-direction:column;min-height:160px}
+      .okay{margin-top:80px}
+      .reveal{top:49%}
+      .micro{max-width:260px;margin-left:auto;margin-right:auto}
+      .prank-card{padding:45px 24px}
+      .photo-small{left:-15px;bottom:-65px;width:90px}
+      .mini-ball{right:-25px;bottom:-50px;width:105px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <main class="page active" id="page1">
+    <div class="paper-bg"></div>
+    <img class="sticker ball" src="assets/pink-gold-disco-ball.png" alt="">
+    <img class="sticker ball2" src="assets/pink-gold-disco-ball.png" alt="">
+
+    <figure class="photo-card">
+      <img src="assets/nishy-childhood.png" alt="Nishy as a child">
+      <figcaption>tiny nishy</figcaption>
+    </figure>
+
+    <div class="sticker doodle" style="right:12%;top:34%">✦</div>
+    <div class="sticker star" style="left:15%;bottom:19%">★</div>
+    <div class="sticker tape" style="right:16%;bottom:12%"></div>
+
+    <section class="content">
+      <div class="tiny-note">a very important announcement...</div>
+      <h1 class="hero-title">happy eve, <span>nishy!</span></h1>
+      <p class="sub">i know you wanna know what i’m gifting you...<br>
+        so here’s your chance. <span style="color:var(--gold)">choose wisely.</span></p>
+
+      <div class="buttons">
+        <button class="btn reveal" id="revealBtn" type="button">reveal the gift</button>
+        <button class="btn okay" id="okayBtn" type="button">okay, i’ll click here</button>
+      </div>
+      <div class="micro">p.s. one of these buttons is lying to you.</div>
+    </section>
+  </main>
+
+  <!-- PAGE 2 -->
+  <main class="page" id="page2">
+    <div class="paper-bg"></div>
+    <img class="sticker ball" src="assets/pink-gold-disco-ball.png" alt="">
+    <div class="sticker doodle" style="left:8%;top:14%">♡</div>
+    <div class="sticker star" style="right:12%;bottom:14%">★</div>
+    <div class="sticker tape" style="left:12%;bottom:16%;transform:rotate(9deg)"></div>
+
+    <section class="content prank-wrap">
+      <div class="prank-card">
+        <div class="tiny-note">well well well...</div>
+        <h2 class="prank-title">Whoever thought<br>I'm actually going<br>to reveal your gift...</h2>
+        <p class="prank-sub">oopsies.<br>did you really think i’d make it that easy?</p>
+        <div class="timer"><span></span></div>
+        <div class="count">your patience is now being tested...</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PAGE 3 -->
+  <main class="page" id="page3">
+    <div class="paper-bg"></div>
+    <div class="floating confetti" style="left:8%;top:17%;animation-delay:-1s">✦</div>
+    <div class="floating confetti" style="right:12%;top:20%;animation-delay:-3s">♡</div>
+    <div class="floating confetti" style="left:18%;bottom:16%;animation-delay:-2s">★</div>
+    <img class="sticker mini-ball" src="assets/pink-gold-disco-ball.png" alt="">
+
+    <section class="final-card">
+      <div class="final-kicker">okay, enough bullying you...</div>
+      <h2 class="final-title">for my nishy</h2>
+      <div class="letter">
+        <p>you were my person long before i knew how lucky i was to have you.</p>
+        <p>through all the random conversations, the stupid jokes, the chaos, the little moments and the big ones, you’ve somehow become one of those people who just feels like home.</p>
+        <p>i hope this birthday brings you the kind of happiness you so effortlessly bring to the people around you. you deserve the softest days, the loudest laughs and every beautiful thing coming your way.</p>
+        <p>and yes, i know this whole website was unnecessarily dramatic. but you’re my best friend, so obviously you deserved a whole production.</p>
+      </div>
+      <div class="signature">love you always,<br><span class="signature-name">your favourite menace</span></div>
+      <div class="photo-small">
+        <img src="assets/nishy-childhood.png" alt="Tiny Nishy">
+      </div>
+    </section>
+  </main>
+
+<script>
+(() => {
+  const reveal = document.getElementById('revealBtn');
+  const okay = document.getElementById('okayBtn');
+  const p1 = document.getElementById('page1');
+  const p2 = document.getElementById('page2');
+  const p3 = document.getElementById('page3');
+
+  // The "Reveal" button is intentionally impossible to catch.
+  // It jumps to a random safe position whenever the cursor approaches it.
+  function moveReveal() {
+    const pad = 18;
+    const rect = reveal.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+    const okayRect = okay.getBoundingClientRect();
+
+    let x, y, tries = 0;
+    do {
+      x = pad + Math.random() * (window.innerWidth - w - pad * 2);
+      y = pad + Math.random() * (window.innerHeight - h - pad * 2);
+      tries++;
+      const overlapsOkay =
+        x < okayRect.right + 35 &&
+        x + w > okayRect.left - 35 &&
+        y < okayRect.bottom + 35 &&
+        y + h > okayRect.top - 35;
+      if (!overlapsOkay || tries > 30) break;
+    } while (true);
+
+    const rotation = -8 + Math.random() * 16;
+    reveal.style.left = x + 'px';
+    reveal.style.top = y + 'px';
+    reveal.style.transform = `translate(0,0) rotate(${rotation}deg) scale(${.94 + Math.random()*.12})`;
+  }
+
+  reveal.addEventListener('mouseenter', moveReveal);
+  reveal.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    moveReveal();
+  });
+  reveal.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    moveReveal();
+  }, {passive:false});
+
+  // If the user resizes, keep the runaway button inside the viewport.
+  window.addEventListener('resize', () => {
+    const r = reveal.getBoundingClientRect();
+    if (r.right > innerWidth || r.bottom > innerHeight || r.left < 0 || r.top < 0) moveReveal();
+  });
+
+  function show(page) {
+    [p1,p2,p3].forEach(p => p.classList.remove('active'));
+    page.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  okay.addEventListener('click', () => {
+    show(p2);
+    setTimeout(() => show(p3), 45000);
+  });
+})();
+</script>
+</body>
+</html>
